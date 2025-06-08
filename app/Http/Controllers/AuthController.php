@@ -6,62 +6,65 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function login()
-    {
-        return view('auth.login');
-    }
-
-    public function register()
-    {
-        return view('auth.register');
-    }
 
     public function loginAction(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect('/dashboard');
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return back()->withErrors([
-            'email' => 'As credenciais fornecidas não foram encontradas.',
-        ]);
+        $user = Auth::user();
+
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        return response()->json(['token' => $token], 200);
     }
 
-    public function registerAction(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', 'min:6'],
+        $array = [];
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+            'phone' => 'required|string',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()->first()], 400);
+        }
 
-        Auth::login($user);
+        $newUser = new User;
+        $newUser->name = $data['name'];
+        $newUser->email = $data['email'];
+        $newUser->password = Hash::make($data['password']);
+        $newUser->phone = $data['phone'];
+        $newUser->save();
 
-        return redirect('/dashboard');
+
+        $token = Auth::login($newUser);
+        $array['token'] = $newUser->createToken('api-token')->plainTextToken;
+
+        return response()->json($array, 200);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
+        try{
+            auth()->logout();
+        }catch(Exception $e){
+            return response()->json([
+                'Error to logout: ' . $e->getMessage()
+            ]);
+        }
+        return response()->json(['response' => 'O usuário foi deslogado.'], 200);
     }
 }
 
