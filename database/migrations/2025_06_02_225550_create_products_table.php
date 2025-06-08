@@ -19,9 +19,23 @@ return new class extends Migration
             $table->string('name');
             $table->double('amount');
             $table->string('description');
-            $table->enum('type', ['Usado', 'Semi-novo', 'Novo']);
-            $table->enum('mark', ['Nissan', 'Yamaha', 'Chrevrolet']);
-            $table->enum('model', ['GTX', 'RTX', 'AMD', 'INTEL']);
+            $table->enum('type', ['Usado', 'Novo']);
+            $table->enum('mark', ["Honda",
+    "Yamaha",
+    "Suzuki",
+    "BMW",
+    "Toyota",
+    "Ford",
+    "Chevrolet",
+    "Volkswagen",
+    "Porsche",
+    "Subaru",
+    "Audi",
+    "Royal Enfield",
+    "Triumph",
+    "Harley Davidson",
+    "Nissan",
+    "Renault"]);
             $table->text('location');
             $table->string('img');
             $table->timestamps();

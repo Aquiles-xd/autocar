@@ -30,6 +30,22 @@ class ProductController extends Controller
             'products' => $products
         ], 200);
     }
+    public function getProductsById(Request $request)
+    {
+        $user_id = Auth::id();
+        $data = $request->all();
+
+        $products = Product::where('user_id', $user_id)->get();
+
+        if ($products->isEmpty()) {
+            return response()->json(['message' => 'Nenhum produto encontrado'], 400);
+        }
+
+        return response()->json([
+            'message' => 'Lista de produtos pesquisada com sucesso',
+            'products' => $products
+        ], 200);
+    }
 
     public function store(Request $request){
         $user = Auth::user();
@@ -58,7 +74,6 @@ class ProductController extends Controller
             $newProduct->description = $data['description'];
             $newProduct->type = $data['type'];
             $newProduct->mark = $data['mark'];
-            $newProduct->model = $data['model'];
             $newProduct->location = $data['location'];
             $newProduct->img = $data['img'];
             $newProduct->save();

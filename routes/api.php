@@ -27,6 +27,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('/product')->middleware('auth:sanctum')->group(function()
 {
     Route::get('/get', [ProductController::class, 'getProducts']);
+    Route::get('/getMyProducts', [ProductController::class, 'getProductsById']);
     Route::post('/store', [ProductController::class, 'store']);
     Route::post('/edit', [ProductController::class, 'edit']);
     Route::post('/destroy', [ProductController::class, 'destroy']);
