@@ -11,6 +11,26 @@ use DB;
 
 class ProductController extends Controller
 {
+    public function getProducts(Request $request)
+    {
+        $data = $request->all();
+
+        if (!isset($data['category_id'])) {
+            return response()->json(['error' => 'ID da categoria não informado.'], 400);
+        }
+
+        $products = Product::where('category_id', $data['category_id'])->get();
+
+        if ($products->isEmpty()) {
+            return response()->json(['message' => 'Nenhum produto dessa categoria encontrado'], 400);
+        }
+
+        return response()->json([
+            'message' => 'Lista de produtos pesquisada com sucesso',
+            'products' => $products
+        ], 200);
+    }
+
     public function store(Request $request){
         $user = Auth::user();
         $array = [];

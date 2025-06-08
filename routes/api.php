@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SchedullingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,20 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('/product')->middleware('auth:sanctum')->group(function()
 {
+    Route::get('/get', [ProductController::class, 'getProducts']);
     Route::post('/store', [ProductController::class, 'store']);
     Route::post('/edit', [ProductController::class, 'edit']);
     Route::post('/destroy', [ProductController::class, 'destroy']);
 });
+Route::prefix('/schedulling')->middleware('auth:sanctum')->group(function()
+{
+    Route::post('/get', [SchedullingController::class, 'getByProduct']);
+    Route::post('/schedule', [SchedullingController::class, 'schedule']);
+    Route::post('/accept', [SchedullingController::class, 'accept']);
+    Route::post('/finish', [SchedullingController::class, 'finish']);
+    Route::post('/destroy', [SchedullingController::class, 'destroy']);
+});
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
