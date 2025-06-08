@@ -117,7 +117,6 @@ class ProductController extends Controller
                 $product->description = $data['description'];
                 $product->type = $data['type'];
                 $product->mark = $data['mark'];
-                $product->model = $data['model'];
                 $product->location = $data['location'];
                 $product->img = $data['img'];
                 $product->save();
