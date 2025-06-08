@@ -75,7 +75,7 @@ class ProductController extends Controller
             $newProduct->type = $data['type'];
             $newProduct->mark = $data['mark'];
             $newProduct->location = $data['location'];
-            $newProduct->img = $data['img'];
+            // $newProduct->img = $data['img'];
             $newProduct->save();
 
             DB::commit();
@@ -118,7 +118,7 @@ class ProductController extends Controller
                 $product->type = $data['type'];
                 $product->mark = $data['mark'];
                 $product->location = $data['location'];
-                $product->img = $data['img'];
+                // $product->img = $data['img'];
                 $product->save();
             }else{
                 DB::rollback();

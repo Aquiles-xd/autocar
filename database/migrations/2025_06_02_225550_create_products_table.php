@@ -37,7 +37,7 @@ return new class extends Migration
     "Nissan",
     "Renault"]);
             $table->text('location');
-            $table->string('img');
+            // $table->string('img');
             $table->timestamps();
         });
     }
