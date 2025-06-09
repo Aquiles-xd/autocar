@@ -36,7 +36,7 @@ Route::prefix('/product')->middleware('auth:sanctum')->group(function()
 Route::prefix('/schedulling')->middleware('auth:sanctum')->group(function()
 {
     Route::post('/get', [SchedullingController::class, 'getByProduct']);
-    Route::post('/schedule', [SchedullingController::class, 'schedule']);
+    Route::post('/store', [SchedullingController::class, 'schedule']);
     Route::post('/accept', [SchedullingController::class, 'accept']);
     Route::post('/finish', [SchedullingController::class, 'finish']);
     Route::post('/destroy', [SchedullingController::class, 'destroy']);
