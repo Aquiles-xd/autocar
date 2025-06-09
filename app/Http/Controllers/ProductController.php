@@ -122,7 +122,7 @@ class ProductController extends Controller
                 $product->save();
             }else{
                 DB::rollback();
-                return response()->json(['error' => 'Erro ao editar produto: ' . $e->getMessage()], 500);
+                return response()->json(['error' => 'Erro ao editar produto: '], 500);
             }
 
             DB::commit();
@@ -152,7 +152,7 @@ class ProductController extends Controller
                 $product->delete();
             }else{
                 DB::rollback();
-                return response()->json(['error' => 'Erro ao editar produto: ' . $e->getMessage()], 500);
+                return response()->json(['error' => 'Erro ao editar produto: '], 500);
             }
 
             DB::commit();

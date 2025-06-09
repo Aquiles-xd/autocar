@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SchedullingController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::post('/login', [AuthController::class, 'loginAction']);
 
 Route::post('/store', [AuthController::class, 'store']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 Route::prefix('/product')->middleware('auth:sanctum')->group(function()
 {
@@ -41,6 +42,10 @@ Route::prefix('/schedulling')->middleware('auth:sanctum')->group(function()
     Route::post('/destroy', [SchedullingController::class, 'destroy']);
 });
 
+Route::prefix('/order')->middleware('auth:sanctum')->group(function()
+{
+    Route::post('/store', [OrderController::class, 'store']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

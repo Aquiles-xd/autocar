@@ -32,7 +32,6 @@ class SchedullingController extends Controller
                 }
                 else{
             return response()->json(['message' => 'Usuário não encontrado'], 400);
-            die;
         }
 
     }
@@ -60,6 +59,7 @@ class SchedullingController extends Controller
     {
         $user_id = Auth::id();
         $schedulling = Schedulling::find($request->id);
+        $product = Product::find($schedulling->product_id);
 
         if (!$schedulling) {
             return response()->json(['message' => 'Agendamento não encontrado.'], 404);

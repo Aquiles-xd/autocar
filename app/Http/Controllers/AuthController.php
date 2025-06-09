@@ -55,16 +55,20 @@ class AuthController extends Controller
         return response()->json($array, 200);
     }
 
-    public function logout()
-    {
-        try{
-            auth()->logout();
-        }catch(Exception $e){
-            return response()->json([
-                'Error to logout: ' . $e->getMessage()
-            ]);
-        }
-        return response()->json(['response' => 'O usuário foi deslogado.'], 200);
+    public function logout(Request $request)
+{
+    $user = $request->user();
+
+    if (!$user || !$user->currentAccessToken()) {
+        return response()->json(['error' => 'Usuário não autenticado'], 401);
     }
+
+    // Deleta o token usado na requisição atual (efetivamente deslogando)
+    $user->currentAccessToken()->delete();
+
+    return response()->json(['message' => 'Logout realizado com sucesso'], 200);
+}
+
+
 }
 
