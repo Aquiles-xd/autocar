@@ -62,8 +62,7 @@ class AuthController extends Controller
     if (!$user || !$user->currentAccessToken()) {
         return response()->json(['error' => 'Usuário não autenticado'], 401);
     }
-
-    // Deleta o token usado na requisição atual (efetivamente deslogando)
+    
     $user->currentAccessToken()->delete();
 
     return response()->json(['message' => 'Logout realizado com sucesso'], 200);

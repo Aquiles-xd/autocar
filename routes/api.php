@@ -31,7 +31,7 @@ Route::prefix('/product')->middleware('auth:sanctum')->group(function()
     Route::get('/getMyProducts', [ProductController::class, 'getProductsById']);
     Route::post('/store', [ProductController::class, 'store']);
     Route::post('/edit', [ProductController::class, 'edit']);
-    Route::post('/destroy', [ProductController::class, 'destroy']);
+    Route::delete('/destroy', [ProductController::class, 'destroy']);
 });
 Route::prefix('/schedulling')->middleware('auth:sanctum')->group(function()
 {
