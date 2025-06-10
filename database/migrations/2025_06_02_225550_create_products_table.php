@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->integer('status')->default(0);
+            $table->integer('km');
+            $table->string('engine');
+            $table->string('year', 4);
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('CASCADE');
             $table->string('name');
             $table->double('amount');

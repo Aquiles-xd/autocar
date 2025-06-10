@@ -71,6 +71,9 @@ class ProductController extends Controller
             $newProduct->category_id = $data['category'];
             $newProduct->name = $data['name'];
             $newProduct->amount = $data['amount'];
+            $newProduct->km = $data['km'];
+            $newProduct->engine = $data['engine'];
+            $newProduct->year = $data['year'];
             // $newProduct->description = $data['description'];
             $newProduct->type = $data['type'];
             $newProduct->mark = $data['mark'];
@@ -114,6 +117,9 @@ class ProductController extends Controller
                 $product->category_id = $data['category'];
                 $product->name = $data['name'];
                 $product->amount = $data['amount'];
+                $product->km = $data['km'];
+                $product->engine = $data['engine'];
+                $product->year = $data['year'];
                 // $product->description = $data['description'];
                 $product->type = $data['type'];
                 $product->mark = $data['mark'];
