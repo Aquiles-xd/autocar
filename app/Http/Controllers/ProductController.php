@@ -56,7 +56,7 @@ class ProductController extends Controller
         $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'amount' => 'required',
-            'description' => 'required|string',
+            // 'description' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +71,7 @@ class ProductController extends Controller
             $newProduct->category_id = $data['category'];
             $newProduct->name = $data['name'];
             $newProduct->amount = $data['amount'];
-            $newProduct->description = $data['description'];
+            // $newProduct->description = $data['description'];
             $newProduct->type = $data['type'];
             $newProduct->mark = $data['mark'];
             $newProduct->location = $data['location'];
@@ -98,7 +98,7 @@ class ProductController extends Controller
         $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'amount' => 'required',
-            'description' => 'required|string',
+            // 'description' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -114,7 +114,7 @@ class ProductController extends Controller
                 $product->category_id = $data['category'];
                 $product->name = $data['name'];
                 $product->amount = $data['amount'];
-                $product->description = $data['description'];
+                // $product->description = $data['description'];
                 $product->type = $data['type'];
                 $product->mark = $data['mark'];
                 $product->location = $data['location'];

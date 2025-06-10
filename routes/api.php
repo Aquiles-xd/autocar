@@ -44,6 +44,7 @@ Route::prefix('/schedulling')->middleware('auth:sanctum')->group(function()
 
 Route::prefix('/order')->middleware('auth:sanctum')->group(function()
 {
+    Route::get('/getMyOrders', [OrderController::class, 'getMyOrders']);
     Route::post('/store', [OrderController::class, 'store']);
 });
 

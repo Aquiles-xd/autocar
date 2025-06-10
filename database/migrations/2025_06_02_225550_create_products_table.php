@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('CASCADE');
             $table->string('name');
             $table->double('amount');
-            $table->string('description');
+            // $table->string('description');
             $table->enum('type', ['Usado', 'Novo']);
             $table->enum('mark', ["Honda",
     "Yamaha",

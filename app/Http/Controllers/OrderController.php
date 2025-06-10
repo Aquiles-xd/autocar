@@ -44,4 +44,15 @@ class OrderController extends Controller
         }
 
     }
+    public function getMyOrders(Request $request)
+{
+    $user = Auth::user();
+
+    $orders = $user->orders()->with('product')->get();
+
+    return response()->json([
+        'success' => true,
+        'orders' => $orders
+    ]);
+}
 }
